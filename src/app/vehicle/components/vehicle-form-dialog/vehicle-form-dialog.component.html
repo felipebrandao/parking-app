@@ -1,0 +1,41 @@
+<h1 mat-dialog-title>{{ title }}</h1>
+
+<div mat-dialog-content>
+  <form [formGroup]="vehicleForm">
+    <div>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Marca</mat-label>
+        <input matInput formControlName="brand"/>
+      </mat-form-field>
+      <mat-error *ngIf="vehicleForm.get('brand')?.errors?.['required'] && vehicleForm.get('brand')?.touched">
+        Marca é obrigatório
+      </mat-error>
+    </div>
+    <div>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Modelo</mat-label>
+        <input matInput formControlName="model"/>
+      </mat-form-field>
+      <mat-error *ngIf="vehicleForm.get('model')?.errors?.['required'] && vehicleForm.get('model')?.touched">
+        Modelo é obrigatório
+      </mat-error>
+    </div>
+    <div>
+      <mat-form-field appearance="fill" class="full-width">
+        <mat-label>Placa</mat-label>
+        <input matInput formControlName="licensePlate"/>
+      </mat-form-field>
+      <mat-error
+        *ngIf="vehicleForm.get('licensePlate')?.errors?.['required'] && vehicleForm.get('licensePlate')?.touched">
+        Placa é obrigatória
+      </mat-error>
+    </div>
+  </form>
+</div>
+
+<div mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()">Cancelar</button>
+  <button mat-flat-button color="primary" (click)="onSave()" [disabled]="vehicleForm.invalid">
+    Salvar
+  </button>
+</div>

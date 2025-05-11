@@ -1,0 +1,22 @@
+.parking-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.parking-card {
+  width: calc(33% - 1rem);
+  margin-bottom: 0;
+}
+
+@media (max-width: 768px) {
+  .parking-card {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .parking-card {
+    width: 100%;
+  }
+}

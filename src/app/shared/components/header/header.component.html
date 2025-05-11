@@ -1,0 +1,14 @@
+<mat-toolbar color="primary">
+  <div class="logo-container">
+    <img src="assets/logo/parking_app.png" alt="Parking App Logo" class="logo" />
+  </div>
+  <span class="spacer"></span>
+  <button mat-button routerLink="/parkings">Estacionamentos</button>
+  <button mat-button routerLink="/vehicles">Veículos</button>
+  <ng-container *ngIf="user$ | async as user">
+    <a>
+      <img src="assets/icons/user.png" alt="Ícone da pessoa usuária">
+    </a>
+    <button mat-stroked-button color="primary" (click)="logout()">SAIR</button>
+  </ng-container>
+</mat-toolbar>

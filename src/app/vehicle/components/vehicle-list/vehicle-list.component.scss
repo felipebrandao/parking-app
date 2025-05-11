@@ -1,0 +1,33 @@
+.vehicle-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.vehicle-card {
+  width: calc(33% - 1rem);
+  margin-bottom: 0;
+}
+
+.actions {
+  margin-top: 1rem;
+}
+
+.add-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+}
+
+@media (max-width: 768px) {
+  .vehicle-card {
+    width: calc(50% - 1rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .vehicle-card {
+    width: 100%;
+  }
+}

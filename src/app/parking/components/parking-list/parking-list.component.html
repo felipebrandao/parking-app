@@ -1,0 +1,8 @@
+<h2>Estacionamentos ativos</h2>
+<div class="parking-list-container">
+  <mat-card *ngFor="let parking of parkings" class="parking-card">
+    <p><strong>Placa:</strong> {{ parking.licensePlate }}</p>
+    <p><strong>Início:</strong> {{ parking.startTime }}</p>
+    <p><strong>Duração:</strong> {{ parking.duration }}</p>
+  </mat-card>
+</div>
