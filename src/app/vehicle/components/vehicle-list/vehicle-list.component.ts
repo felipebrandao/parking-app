@@ -6,6 +6,7 @@ import {VehicleService} from '../../services/vehicle.service';
 import {MatDialog} from '@angular/material/dialog';
 import {VehicleFormDialogComponent} from '../vehicle-form-dialog/vehicle-form-dialog.component';
 import {MatConfirmDialogComponent} from '../../../shared/mat-confirm-dialog/mat-confirm-dialog.component';
+import {delay} from 'rxjs';
 
 @Component({
   selector: 'app-vehicle',
@@ -34,7 +35,7 @@ export class VehicleListComponent implements OnInit {
 
   loadVehicles(): void {
     this.loading = true;
-    this.vehicleService.getVehicles().subscribe({
+    this.vehicleService.getVehicles().pipe(delay(2000)).subscribe({
       next: (data: Vehicle[]) => {
         this.dataSource.data = data;
         this.dataSource.sort = this.sort;
@@ -44,6 +45,9 @@ export class VehicleListComponent implements OnInit {
       error: (error) => {
         this.error = 'Erro ao carregar os veículos.';
         console.error(error);
+        this.loading = false;
+      },
+      complete: () => {
         this.loading = false;
       }
     });
@@ -57,10 +61,17 @@ export class VehicleListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.vehicleService.addVehicle(result).subscribe({
+        this.loading = true;
+        this.vehicleService.addVehicle(result).pipe(delay(2000)).subscribe({
           next: (newVehicle) => {
             this.dataSource.data = [ ...this.dataSource.data, newVehicle];
             this.dataSource._updateChangeSubscription();
+          },
+          error: (error) => {
+            console.error('Erro ao adicionar o veículo:', error);
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       }
@@ -75,14 +86,21 @@ export class VehicleListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
+        this.loading = true;
         const updatedVehicle = { ...vehicle, ...result };
-        this.vehicleService.updateVehicle(vehicle.id, updatedVehicle).subscribe({
+        this.vehicleService.updateVehicle(vehicle.id, updatedVehicle).pipe(delay(2000)).subscribe({
           next: (updated) => {
             const index = this.dataSource.data.findIndex(v => v.id === vehicle.id);
             if (index > -1) {
               this.dataSource.data[index] = updated;
               this.dataSource._updateChangeSubscription();
             }
+          },
+          error: (error) => {
+            console.error('Erro ao atualizar o veículo:', error);
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       }
@@ -98,13 +116,17 @@ export class VehicleListComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        this.vehicleService.deleteVehicle(id).subscribe({
+        this.loading = true;
+        this.vehicleService.deleteVehicle(id).pipe(delay(2000)).subscribe({
           next: () => {
             this.dataSource.data = this.dataSource.data.filter(v => v.id !== id);
             this.dataSource._updateChangeSubscription();
           },
           error: (error) => {
             console.error('Erro ao deletar o veículo:', error);
+          },
+          complete: () => {
+            this.loading = false;
           }
         });
       }

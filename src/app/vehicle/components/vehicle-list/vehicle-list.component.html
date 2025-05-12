@@ -1,5 +1,13 @@
 <h2>Lista de Veículos</h2>
 
+<div *ngIf="loading" class="spinner-overlay">
+  <mat-progress-spinner mode="indeterminate" diameter="48"></mat-progress-spinner>
+</div>
+
+<div *ngIf="error" class="error-message">
+  {{ error }}
+</div>
+
 <div class="mat-elevation-z8">
   <table mat-table [dataSource]="dataSource" matSort class="full-width-table">
 
@@ -21,10 +29,10 @@
     <ng-container matColumnDef="actions">
       <th mat-header-cell *matHeaderCellDef>Ações</th>
       <td mat-cell *matCellDef="let row">
-        <button mat-icon-button color="primary" aria-label="Editar veículo" (click)="openEditDialog(row)">
+        <button mat-icon-button color="primary" aria-label="Editar veículo" (click)="openEditDialog(row)" [disabled]="loading">
           <mat-icon>edit</mat-icon>
         </button>
-        <button mat-icon-button color="warn" aria-label="Deletar veículo" (click)="deleteVehicle(row.id)">
+        <button mat-icon-button color="warn" aria-label="Deletar veículo" (click)="deleteVehicle(row.id)" [disabled]="loading">
           <mat-icon>delete</mat-icon>
         </button>
       </td>
@@ -35,6 +43,6 @@
   </table>
 </div>
 
-<button mat-fab color="primary" aria-label="Adicionar novo veículo" class="add-button" (click)="openAddDialog()">
+<button mat-fab color="primary" aria-label="Adicionar novo veículo" class="add-button" (click)="openAddDialog()" [disabled]="loading">
   <mat-icon>add</mat-icon>
 </button>

@@ -1,32 +1,38 @@
 <div class="login-container">
   <mat-card class="login-card">
     <div class="logo-container">
-      <img src="../../../../assets/logo/parking_app.png" alt="Parking App Logo" class="logo" />
+      <img src="assets/logo/parking_app.png" alt="Parking App Logo" class="logo" />
     </div>
 
     <h2 class="title">Controle de Acesso</h2>
 
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Email</mat-label>
         <mat-icon matPrefix>person</mat-icon>
-        <input matInput formControlName="email" placeholder="Digite seu e-mail">
+        <input matInput formControlName="email" placeholder="Digite seu e-mail" autocomplete="email" aria-label="E-mail">
         <mat-error *ngIf="loginForm.get('email')?.errors?.['required']">
           É obrigatório informar um email
+        </mat-error>
+        <mat-error *ngIf="loginForm.get('email')?.errors?.['email']">
+          Email inválido
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Senha</mat-label>
         <mat-icon matPrefix>lock</mat-icon>
-        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Digite sua senha">
+        <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" placeholder="Digite sua senha" autocomplete="current-password" aria-label="Senha">
+        <mat-error *ngIf="loginForm.get('password')?.errors?.['required']">
+          É obrigatório informar a senha
+        </mat-error>
         <button mat-icon-button matSuffix (click)="togglePasswordVisibility()" type="button">
           <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
         </button>
       </mat-form-field>
 
-      <button mat-flat-button color="primary" class="full-width" [disabled]="loginForm.invalid">
-        Entrar
+      <button mat-flat-button color="primary" class="full-width" [disabled]="loginForm.invalid || isLoading">
+        {{ isLoading ? 'Entrando...' : 'Entrar' }}
       </button>
     </form>
 
@@ -36,7 +42,7 @@
     </div>
 
     <div class="footer">
-      <img src="../../../../assets/logo/logo_icon_144x144.png" alt="Parking App Logo" class="brands">
+      <img src="assets/logo/logo_icon_144x144.png" alt="Parking App Logo" class="brands">
       <div class="version">© 2025 - Felipe Brandão<br>Todos os direitos reservados.<br>0.0.1</div>
     </div>
   </mat-card>

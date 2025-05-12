@@ -23,4 +23,8 @@ export class AuthService {
     return this.http.post<AuthResponse>(`${this.API_URL}/login`, body, { observe: 'response' });
   }
 
+  refreshToken() {
+    return this.http.post<any>(`${this.API_URL}/refresh`, {}, { observe: 'response' });
+  }
+
 }

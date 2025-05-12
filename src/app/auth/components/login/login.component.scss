@@ -58,3 +58,8 @@
   color: #555;
   cursor: pointer;
 }
+
+::ng-deep .snackbar-error {
+  background-color: #e53935;
+  color: white;
+}
