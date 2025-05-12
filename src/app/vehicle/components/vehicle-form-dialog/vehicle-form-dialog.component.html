@@ -6,29 +6,29 @@
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Marca</mat-label>
         <input matInput formControlName="brand"/>
+        <mat-error *ngIf="vehicleForm.get('brand')?.errors?.['required'] && vehicleForm.get('brand')?.touched">
+          Marca é obrigatório
+        </mat-error>
       </mat-form-field>
-      <mat-error *ngIf="vehicleForm.get('brand')?.errors?.['required'] && vehicleForm.get('brand')?.touched">
-        Marca é obrigatório
-      </mat-error>
     </div>
     <div>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Modelo</mat-label>
         <input matInput formControlName="model"/>
+        <mat-error *ngIf="vehicleForm.get('model')?.errors?.['required'] && vehicleForm.get('model')?.touched">
+          Modelo é obrigatório
+        </mat-error>
       </mat-form-field>
-      <mat-error *ngIf="vehicleForm.get('model')?.errors?.['required'] && vehicleForm.get('model')?.touched">
-        Modelo é obrigatório
-      </mat-error>
     </div>
     <div>
       <mat-form-field appearance="fill" class="full-width">
         <mat-label>Placa</mat-label>
         <input matInput formControlName="licensePlate"/>
+        <mat-error
+          *ngIf="vehicleForm.get('licensePlate')?.errors?.['required'] && vehicleForm.get('licensePlate')?.touched">
+          Placa é obrigatória
+        </mat-error>
       </mat-form-field>
-      <mat-error
-        *ngIf="vehicleForm.get('licensePlate')?.errors?.['required'] && vehicleForm.get('licensePlate')?.touched">
-        Placa é obrigatória
-      </mat-error>
     </div>
   </form>
 </div>
